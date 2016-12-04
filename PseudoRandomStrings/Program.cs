@@ -61,7 +61,9 @@ namespace PseudoRandomStrings
 
 
             Console.WriteLine(result);
+            #if !__MonoCS__
             Clipboard.SetText(result);
+            #endif
 
             string input = Console.ReadLine();
 
