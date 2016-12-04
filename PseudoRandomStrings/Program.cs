@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+#if !__MonoCS__
 using System.Windows.Forms;
+#endif
 
 namespace PseudoRandomStrings
 {   
