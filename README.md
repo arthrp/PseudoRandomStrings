@@ -10,6 +10,8 @@ You can generate random strings, or random (valid) emails, more options to be ad
 Generated strings are even put to clipboard automatically, which saves you some copy-pasting.
 Unfortunately that API is not available in Mono, so auto-copying to clipboard is windows-only for the time being.
 
+**Warning**: generated strings are not indended for crypto purposes (e.g. password generation). As of now weak random is used, to speed up the generation.
+
 Use it like:
 
 PseudoRandomStrings [string length] [-type Email|String] [-loop]
