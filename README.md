@@ -10,7 +10,7 @@ You can generate random strings, or random (valid) emails, more options to be ad
 Generated strings are even put to clipboard automatically, which saves you some copy-pasting.
 Unfortunately that API is not available in Mono, so auto-copying to clipboard is windows-only for the time being.
 
-**Warning**: generated strings are not indended for security purposes (e.g. password generation). As of now weak random is used, to speed up the generation.
+**Warning**: As of now weak random source is used, to speed up the string generation.
 
 Use it like:
 
@@ -18,4 +18,11 @@ PseudoRandomStrings [string length] [-type Email|String] [-loop]
 
 First argument is a length of generated string.
 You can specify -type of string, random alphanumeric or random email.
+
 If you pass -loop, it will spin in an infinite loop, giving you new strings. Press 'q' to quit the loop.
+
+Example:
+
+PseudoRandomStrings 8 -type String
+
+Will generate an alphanumeric string of 8 chars.
