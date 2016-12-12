@@ -11,36 +11,44 @@ namespace PseudoRandomStrings
 {   
     class Program
     {
+        private const int TYPE_VAL_IDX = 1;
+
         [STAThread]
         static void Main(string[] args)
         {
             var randGenerator = new RandomGenerator();
 
-            if(args.Length == 0)
+            if (args.Length == 0)
             {
                 GenerateOnce(8, randGenerator);
                 return;
             }
 
-            bool isLoop = args.Contains("-loop");
-            int typeArgIndex = args.ToList().IndexOf("-type");
-
             var entityType = GeneratedEntity.String;
 
-            if (typeArgIndex >= 0)
+            bool hasValidType = Enum.TryParse<GeneratedEntity>(args[TYPE_VAL_IDX], out entityType);
+            if (!hasValidType)
             {
-                var stringType = args[typeArgIndex + 1];
-                if(!Enum.TryParse<GeneratedEntity>(stringType, out entityType))
-                {
-                    PrintUsage();
-                    return;
-                }
+                Console.WriteLine("Must have a valid type specified");
+                return;
             }
 
+            int stringLength;
+            bool hasValidLength = Int32.TryParse(args[3], out stringLength);
+
+            if (args[0] != "-l" && args[TYPE_VAL_IDX] != "Name" && !hasValidLength)
+            {
+                Console.WriteLine("Must have a valid length specified, unless generating name!"+Environment.NewLine);
+                PrintUsage();
+                return;
+            }
+
+            bool isLoop = args.Contains("-loop");
+
             if (isLoop)
-                GenerateInLoop(Int32.Parse(args[0]), randGenerator, entityType);
+                GenerateInLoop(stringLength, randGenerator, entityType);
             else
-                GenerateOnce(Int32.Parse(args[0]), randGenerator, entityType);
+                GenerateOnce(stringLength, randGenerator, entityType);
         }
 
         private static void GenerateInLoop(int length, RandomGenerator randGenerator, GeneratedEntity type = GeneratedEntity.String)
@@ -48,7 +56,7 @@ namespace PseudoRandomStrings
             string input = "";
             while(input.ToLowerInvariant() != "q")
             {
-                input = GenerateOnce(length, randGenerator);
+                input = GenerateOnce(length, randGenerator, type);
             }
         }
 
@@ -60,6 +68,8 @@ namespace PseudoRandomStrings
                 result = randGenerator.GenerateRandomString(length);
             else if (type == GeneratedEntity.Email)
                 result = randGenerator.GenerateRandomEmail(length);
+            else if (type == GeneratedEntity.Name)
+                result = randGenerator.GenerateRandomName(NameType.All);
 
 
             Console.WriteLine(result);
@@ -75,7 +85,8 @@ namespace PseudoRandomStrings
         private static void PrintUsage()
         {
             Console.WriteLine("Usage:");
-            Console.WriteLine("PseudoRandomStrings [string length] [-type Email|String] [-loop]");
+            Console.WriteLine("PseudoRandomStrings -type [Email|String] -l [string_length] [-loop] or");
+            Console.WriteLine("PseudoRandomStrings -type [Name] [-loop]");
         }
     }
 }

@@ -9,6 +9,14 @@ namespace PseudoRandomStrings
     public enum GeneratedEntity
     {
         String = 's',
-        Email = 'e'
+        Email = 'e',
+        Name = 'n'
+    }
+
+    public enum NameType
+    {
+        Male,
+        Female,
+        All
     }
 }
