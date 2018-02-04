@@ -1,6 +1,8 @@
 # PseudoRandomStrings
 Productivity tool to generate random strings, emails, etc.
 
+*WARNING:* No longer developed. Please use https://github.com/arthrp/PseudoRandomStringsCore instead.
+
 [![Build Status](https://travis-ci.org/arthrp/PseudoRandomStrings.svg?branch=master)](https://travis-ci.org/arthrp/PseudoRandomStrings)
 
 Sometimes you need to come up with many different strings. Like when filling in some form in a web app. 
